@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Cancelada - {{eventName}}</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #444444; margin: 0; padding: 0; line-height: inherit;">
+
+    <table style="max-width: 600px; width: 100%; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; overflow: hidden; border-radius: 6px; color: #444444; font-family: Open Sans, Arial, sans-serif; font-size: 14px;" role="presentation">
+        
+        <!-- Header -->
+        <tr>
+            <td style="text-align: left; padding: 20px; border-bottom: 1px solid #ddd;">
+                <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Logotipo" style="width: 120px; max-width: 100%;">
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td style="padding: 20px; text-align: left; color: #444444;">
+                <h1 style="font-size: 20px; margin-bottom: 10px; color: #444444;">Olá, {{userFullName}}</h1>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Informamos que sua reserva para o evento <strong>{{eventName}}</strong> foi cancelada. 😔</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Motivo do cancelamento: <strong>{{cancelReason}}</strong></p>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Se desejar, você pode realizar uma nova reserva acessando nossa plataforma.</p>
+
+                <a href="{{newReservationLink}}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px;">Fazer Nova Reserva</a>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Caso tenha dúvidas, entre em contato com nossa equipe de suporte.</p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="text-align: center; padding: 20px; background-color: #f8f8f8; font-size: 14px; color: #888888;">
+                <p style="margin: 10px 0;">&copy; 2025 Piweto. Todos os direitos reservados.</p>
+                <p style="margin: 10px 0;">Se você não iniciou esta solicitação, por favor, ignore este e-mail.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

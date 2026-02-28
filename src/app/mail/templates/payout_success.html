@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu saque foi processado - Piweto</title>
+    <style>
+        body,
+        table,
+        td,
+        a {
+            text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: inherit;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #444444;
+        }
+
+        .email-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .header {
+            text-align: left;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header img {
+            width: 120px;
+            max-width: 100%;
+        }
+
+        .body {
+            padding: 20px;
+            text-align: left;
+            color: #444444;
+        }
+
+        .body h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #444444;
+        }
+
+        .body p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #444444;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            font-size: 14px;
+            color: #888888;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        .status-success {
+            color: #32bb78;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table role="presentation" class="email-container">
+        <!-- Header -->
+        <tr>
+            <td class="header">
+                <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Logotipo">
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td class="body">
+                <h1>Olá, {{userFullName}}!</h1>
+                <p>Temos boas notícias! 🎉</p>
+                <p class="status-success">Seu saque de <strong>{{amount}}</strong> do seu evento <strong>{{eventName}}</strong> foi processado com sucesso.</p>
+                <p>O valor foi enviado para sua conta bancária:</p>
+                <p><strong>Banco:</strong> {{bankName}}</p>
+                <p><strong>IBAN:</strong> {{iban}}</p>
+                <p><strong>Titular:</strong> {{accountHolder}}</p>
+                <p>Fique tranquilo! O processamento está em andamento e, após finalizado, o dinheiro pode levar alguns minutos ou até 24 horas para refletir em sua conta, dependendo das regras do banco.</p>
+                <p>Se tiver dúvidas ou precisar de ajuda, nossa equipe de suporte está à disposição!</p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td class="footer">
+                <p>&copy; 2025 Piweto. Todos os direitos reservados.</p>
+                <p>Se você acredita que isso foi um erro, entre em contato conosco.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

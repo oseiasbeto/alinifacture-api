@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento da sua reserva para o evento {{eventName}} - {{userFullName}}</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #444444; margin: 0; padding: 0; line-height: 1.5;">
+
+    <table style="max-width: 600px; width: 100%; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; overflow: hidden; border-radius: 6px;" role="presentation">
+        <!-- Header -->
+        <tr>
+            <td style="text-align: left; padding: 20px; border-bottom: 1px solid #ddd;">
+                <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Logotipo" style="width: 120px; max-width: 100%;">
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td style="padding: 20px; text-align: left; color: #444444;">
+                <h1 style="font-size: 20px; margin-bottom: 10px; color: #444444;">Olá, {{userFullName}}!</h1>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Você realizou uma reserva para o evento <strong>{{eventName}}</strong> com sucesso! 🎉</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Segue abaixo as informações para efetuar o pagamento:</p>
+                <ul style="font-size: 14px; color: #444444; line-height: 1.5;">
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Pedido:</strong> {{id}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Quantidade de Ingressos:</strong> {{ticketQuantity}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Nº Reserva:</strong> {{reservationNumber}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Montante:</strong> {{amount}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Referência:</strong> {{reference}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Entidade:</strong> {{entity}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Validade:</strong> {{validity}}</li>
+                </ul>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">⏱️ <strong>Efetue o pagamento no prazo máximo de 30 min.</strong> Se pagar por Homebanking/Multicaixa Express, aguarde 20 min até estar disponível. No ATM, é imediato.</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Após a confirmação do pagamento, seus ingressos estarão disponíveis na sua área de cliente!</strong></p>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Se tiver alguma dúvida, entre em contato com nossa equipe de suporte.</p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="text-align: center; padding: 20px; background-color: #f8f8f8; font-size: 14px; color: #888888;">
+                <p style="margin: 10px 0;">&copy; 2025 Piweto. Todos os direitos reservados.</p>
+                <p style="margin: 10px 0;">Se você não iniciou esta solicitação, por favor, ignore este e-mail.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

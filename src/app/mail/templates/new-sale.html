@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venda realizada - {{eventName}}</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #444444; margin: 0; padding: 0; line-height: inherit;">
+
+    <table style="max-width: 600px; width: 100%; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; overflow: hidden; border-radius: 6px; color: #444444; font-family: Open Sans, Arial, sans-serif; font-size: 14px;" role="presentation">
+        
+        <!-- Header -->
+        <tr>
+            <td style="text-align: left; padding: 20px; border-bottom: 1px solid #ddd;">
+                <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Logotipo" style="width: 120px; max-width: 100%;">
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td style="padding: 20px; text-align: left; color: #444444;">
+                <h1 style="font-size: 20px; margin-bottom: 10px; color: #444444;">Olá, {{organizerName}}</h1>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Temos uma ótima notícia! Um pagamento foi confirmado para o evento <strong>{{eventName}}</strong>. 🎉</p>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Aqui estão os detalhes do pedido:</p>
+
+                <!-- Informações do pedido -->
+                <ul style="font-size: 14px; color: #444444; line-height: 1.5;">
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Pedido:</strong> {{id}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Quantidade de Ingressos:</strong> {{ticketQuantity}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Nº Reserva:</strong> {{reservationNumber}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Montante pago:</strong> {{amount}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Montante a receber:</strong> {{amountAfterRate}} (-4% taxa)</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Referência:</strong> {{reference}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Entidade:</strong> {{entity}}</li>
+                    <li style="font-size: 14px; line-height: 1.5; color: #444444;"><strong>Validade:</strong> {{validity}}</li>
+                </ul>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">
+                    Você pode visualizar os detalhes completos do pedido acessando sua área de organizador:
+                </p>
+
+                <!-- Botão para ver detalhes do pedido -->
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="{{orderDetailsUrl}}" style="background-color: #007bff; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; display: inline-block;">
+                        Ver Detalhes do Pedido
+                    </a>
+                </div>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">
+                    Se tiver alguma dúvida, entre em contato com nossa equipe de suporte.
+                </p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="text-align: center; padding: 20px; background-color: #f8f8f8; font-size: 14px; color: #888888;">
+                <p style="margin: 10px 0;">&copy; 2025 Piweto. Todos os direitos reservados.</p>
+                <p style="margin: 10px 0;">Este e-mail foi enviado automaticamente, por favor, não responda.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

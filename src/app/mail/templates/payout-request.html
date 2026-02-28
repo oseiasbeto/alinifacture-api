@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Saque - {{eventName}}</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #444444; margin: 0; padding: 0; line-height: inherit;">
+
+    <table style="max-width: 600px; width: 100%; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; overflow: hidden; border-radius: 6px; color: #444444; font-family: Open Sans, Arial, sans-serif; font-size: 14px;" role="presentation">
+        
+        <!-- Header -->
+        <tr>
+            <td style="text-align: left; padding: 20px; border-bottom: 1px solid #ddd;">
+                <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Logotipo" style="width: 120px; max-width: 100%;">
+            </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+            <td style="padding: 20px; text-align: left; color: #444444;">
+                <h1 style="font-size: 20px; margin-bottom: 10px; color: #444444;">Solicitação de Saque Recebida</h1>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Olá, equipe Piweto.</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">O organizador <strong>{{account_holder}}</strong> solicitou o saque dos valores do evento <strong>{{eventName}}</strong>.</p>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">Aqui estão os detalhes da solicitação:</p>
+
+                <!-- Informações do saque -->
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 14px;">
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee; width: 40%;"><strong>Organizador:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{account_holder}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>ID do Usuário:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{user}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Evento:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{eventName}} (ID: {{event}})</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Banco:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{bank_name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>IBAN:</strong></td>
+                        <td style="padding: 8px 0; border-bottom: 1px solid #eee;">{{iban}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0;"><strong>Data da Solicitação:</strong></td>
+                        <td style="padding: 8px 0;">{{currentDate}}</td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">
+                    Por favor, processe esta solicitação de acordo com os procedimentos internos.
+                </p>
+
+
+                <p style="font-size: 14px; line-height: 1.5; color: #444444;">
+                    <strong>Observações:</strong> Este saque está sujeito à verificação e aprovação conforme nossos termos de serviço.
+                </p>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="text-align: center; padding: 20px; background-color: #f8f8f8; font-size: 14px; color: #888888;">
+                <p style="margin: 10px 0;">&copy; 2025 Piweto. Todos os direitos reservados.</p>
+                <p style="margin: 10px 0;">Este e-mail foi enviado automaticamente, por favor, não responda.</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

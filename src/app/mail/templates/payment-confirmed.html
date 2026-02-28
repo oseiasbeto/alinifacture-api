@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingressos Confirmados - {{eventName}}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, sans-serif; color:#444;">
+  <table role="presentation" style="max-width:600px; width:100%; margin:0 auto; background:#ffffff; border-radius:8px; overflow:hidden;">
+    
+    <!-- Header -->
+    <tr>
+      <td style="padding:20px; border-bottom:1px solid #eee;">
+        <img src="https://i.ibb.co/hXqY4rQ/piweto.png" alt="Piweto" style="width:120px;">
+      </td>
+    </tr>
+
+    <!-- Content -->
+    <tr>
+      <td style="padding:20px;">
+        <h2 style="font-size:20px; margin-top:0;">Obrigado, {{userFullName}}! 🎉</h2>
+
+        <p style="font-size:14px; line-height:1.6;">
+          A tua compra para o evento <strong>{{eventName}}</strong> foi confirmada com sucesso.
+        </p>
+
+        <p style="font-size:14px; line-height:1.6;">
+          Os teus <strong>bilhetes</strong> estão anexados a este e-mail. Podes apresentá-los diretamente no teu telemóvel ou imprimir.
+        </p>
+
+        <p style="font-size:14px; line-height:1.6;">
+          Caso prefiras, também podes acessá-los pela tua conta clicando no botão abaixo:
+        </p>
+
+        <!-- Botão -->
+        <div style="text-align:center; margin:30px 0;">
+          <a href="{{ticketsUrl}}" style="background-color:#32bb78; color:#fff; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold; font-size:14px;">
+            Ver Meus Ingressos
+          </a>
+        </div>
+
+        <p style="font-size:13px; color:#777; margin-top:30px;">
+          Se tiveres dúvidas, estamos aqui para te ajudar. Responde a este e-mail ou entra em contacto pelo nosso suporte.
+        </p>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="padding:20px; text-align:center; background-color:#f9f9f9; font-size:12px; color:#999;">
+        <p style="margin:5px 0;">&copy; 2025 Piweto</p>
+        <p style="margin:5px 0;">Este e-mail foi enviado automaticamente. Se não reconheces esta compra, contacta-nos imediatamente.</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
