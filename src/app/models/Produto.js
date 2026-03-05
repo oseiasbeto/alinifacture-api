@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');  // ← importa aqui
 
 const produtoSchema = new mongoose.Schema({
   nome: {
@@ -12,7 +13,7 @@ const produtoSchema = new mongoose.Schema({
     uppercase: true,
   },
   descricao: String,
-  precoUnitario: {
+  preco: {
     type: Number,
     required: [true, 'Preço unitário é obrigatório'],
     min: 0,
@@ -22,7 +23,6 @@ const produtoSchema = new mongoose.Schema({
     enum: ['un', 'kg', 'm', 'hora', 'dia', 'servico', 'outro'],
     default: 'un',
   },
-  categoria: String,
   tributavel: {
     type: Boolean,
     default: true,
@@ -40,5 +40,7 @@ const produtoSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 });
+
+produtoSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Produto', produtoSchema);

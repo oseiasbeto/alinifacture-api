@@ -6,7 +6,8 @@ const generateRefreshToken = (user, expiresIn) => {
     const refresh_token = sign({
         id: user._id,
         email: user.email,
-        name: user.nomeProprio
+        name: user.nomeProprio,
+        empresa: user.empresa
     }, secreet_key, {
         expiresIn: expiresIn
     })

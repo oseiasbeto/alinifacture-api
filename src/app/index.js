@@ -20,9 +20,13 @@ app.use("/files", express.static(path.resolve(__dirname, "..", "uploads")))
 
 // Importando as rotas do aplicativo
 const utilizadores = require("./dominios/utilizadores/utilizadores.routes") // Rotas relacionadas a utilizadores
-
+const produtos = require("./dominios/produtos/produtos.routes") // Rotas relacionadas a produtos
+const clientes = require("./dominios/clientes/clientes.routes") // Rotas relacionadas a clientes
 // Registrando as rotas no aplicativo
+
 app.use("/v1/utilizadores", utilizadores) // Rotas relacionadas a utilizadores
+app.use("/v1/produtos", produtos) // Rotas relacionadas a produtos (ajuste o prefixo conforme necessário)
+app.use("/v1/clientes", clientes) // Rotas relacionadas a clientes
 
 // Rota de boas-vindas
 app.get("/", async (req, res) => {

@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');  // ← importa aqui
 
 const clienteSchema = new mongoose.Schema({
   nome: {
@@ -52,5 +53,7 @@ const clienteSchema = new mongoose.Schema({
 
 // Índice composto: NIF único por empresa
 clienteSchema.index({ empresa: 1, nif: 1 }, { unique: true, sparse: true });
+
+clienteSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Cliente', clienteSchema);
