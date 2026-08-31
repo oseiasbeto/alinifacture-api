@@ -111,13 +111,7 @@ const facturaSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Utilizador',
     required: true,
-  },
-  empresa: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Empresa',
-    required: true,
-    index: true,
-  },
+  }
 }, {
   timestamps: true,
 });
@@ -142,17 +136,9 @@ facturaSchema.pre('save', async function(next) {
   }
 
   if (this.isNew) {
-    const Empresa = mongoose.model('Empresa');
     const Cliente = mongoose.model('Cliente');
-
-    const empresa = await Empresa.findById(this.empresa);
     const cliente = await Cliente.findById(this.cliente);
-
-    if (empresa) {
-      this.nifEmitente = empresa.nif;
-      this.nomeEmitente = empresa.nome;
-      this.serie = empresa.serieFacturaPrefixo || 'AF';
-    }
+    
     if (cliente) {
       this.nomeCliente = cliente.nome;
       this.nifCliente = cliente.nif;

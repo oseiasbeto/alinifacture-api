@@ -5,16 +5,11 @@ const router = express.Router();
 const protectedRoute = require("../../middlewares/protectedRoute")
 //const validObjectId = require("../../middlewares/validObjectId")
 
-// importando os controllers
-const criarCliente = require('./controllers/criarCliente');
-const listarClientes = require('./controllers/listarClientes');
-const atualizarCliente = require('./controllers/atualizarCliente');
-const deletarCliente = require('./controllers/deletarCliente');
-
-router.post('/', protectedRoute, criarCliente);
-router.get('/', protectedRoute, listarClientes);
-router.put('/:id', protectedRoute, atualizarCliente);
-router.delete('/:id', protectedRoute, deletarCliente);
+router.post('/', protectedRoute, require('./controllers/criarCliente'));
+router.get('/', protectedRoute, require('./controllers/listarClientes'));
+router.get('/resumo', protectedRoute, require('./controllers/resumoClientes'));
+router.put('/:id', protectedRoute, require('./controllers/atualizarCliente'));
+router.delete('/:id', protectedRoute, require('./controllers/deletarCliente'));
 
 // exportando as rotas
 module.exports = router

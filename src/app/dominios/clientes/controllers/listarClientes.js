@@ -2,18 +2,12 @@ const Cliente = require('../../../models/Cliente');
 
 const listarClientes = async (req, res) => {
   try {
-    const empresaId = req.user?.empresa || req.empresa?._id;
-
-    if (!empresaId) {
-      return res.status(401).json({ success: false, message: 'Empresa não identificada' });
-    }
-
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const busca = req.query.busca ? req.query.busca.trim() : null;
     const ativo = req.query.ativo; // 'true', 'false' ou undefined
 
-    const filter = { empresa: empresaId };
+    const filter = {  };
 
     if (busca) {
       filter.$or = [

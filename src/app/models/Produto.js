@@ -18,10 +18,30 @@ const produtoSchema = new mongoose.Schema({
     required: [true, 'Preço unitário é obrigatório'],
     min: 0,
   },
+  quantidade: {
+    type: Number,
+    min: 0,
+  },
+  custo: {
+    type: Number,
+    min: 0,
+  },
   unidade: {
     type: String,
     enum: ['un', 'kg', 'm', 'hora', 'dia', 'servico', 'outro'],
     default: 'un',
+  },
+  controlaEstoque: {
+    type: Boolean,
+    default: false,
+  },
+  cor: {
+    type: String,
+    trim: true,
+  },
+  estoqueMinimo: {
+    type: Number,
+    min: 0,
   },
   tributavel: {
     type: Boolean,
@@ -30,6 +50,12 @@ const produtoSchema = new mongoose.Schema({
   ativo: {
     type: Boolean,
     default: true,
+  },
+  criadoPor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Utilizador',
+    required: true,
+    index: true,
   },
   empresa: {
     type: mongoose.Schema.Types.ObjectId,

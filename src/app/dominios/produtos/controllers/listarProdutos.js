@@ -23,7 +23,7 @@ const listarProdutos = async (req, res) => {
     const busca = req.query.busca ? req.query.busca.trim() : null;
 
     // Filtro
-    const filter = { empresa: empresaId };
+    const filter = {};
     if (busca) {
       filter.$or = [
         { nome: { $regex: busca, $options: 'i' } },
@@ -47,8 +47,14 @@ const listarProdutos = async (req, res) => {
         nome: 1,
         codigo: 1,
         descricao: 1,
+        quantidade: 1,
+        custo: 1,
+        cor: 1,
         preco: 1,
         unidade: 1,
+        controlaEstoque: 1,
+        estoqueMinimo: 1,
+        empresa: 1,
         tributavel: 1,
         ativo: 1,
         createdAt: 1

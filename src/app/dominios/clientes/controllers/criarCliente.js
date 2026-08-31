@@ -14,9 +14,9 @@ const criarCliente = async (req, res) => {
       telefone,
       nif,
       endereco,
-      cidade = 'Luanda',
-      provincia = 'Luanda',
-      tipo = 'coletivo',
+      cidade = 'Saurimo',
+      provincia = 'Lunda-sul',
+      tipo = 'singular',
       observacoes,
       ativo = true
     } = req.body;
@@ -25,17 +25,24 @@ const criarCliente = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Nome do cliente é obrigatório' });
     }
 
-    const clienteExistente = await Cliente.findOne({ empresa: empresaId, nif: nif ? nif.trim() : undefined });
+    // NIF é opcional — só verificamos duplicidade quando ele vem mesmo preenchido.
+    // Caso contrário, Cliente.findOne({ nif: undefined }) removeria a chave do filtro
+    // e acabaria por devolver o primeiro cliente da coleção (bug).
+    const nifTratado = nif && nif.trim() ? nif.trim() : null;
 
-    if (clienteExistente) {
-      return res.status(400).json({ success: false, message: 'NIF já existe para outro cliente nesta empresa' });
+    if (nifTratado) {
+      const clienteExistente = await Cliente.findOne({ nif: nifTratado });
+
+      if (clienteExistente) {
+        return res.status(400).json({ success: false, message: 'NIF já existe para outro cliente.' });
+      }
     }
 
     const novoCliente = new Cliente({
       nome: nome.trim(),
       email: email ? email.trim().toLowerCase() : undefined,
       telefone,
-      nif: nif ? nif.trim() : undefined,
+      nif: nifTratado || undefined,
       endereco: endereco ? endereco.trim() : undefined,
       cidade,
       provincia,

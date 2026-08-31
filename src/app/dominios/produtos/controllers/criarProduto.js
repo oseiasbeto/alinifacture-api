@@ -8,9 +8,14 @@ const criarProduto = async (req, res) => {
       codigo,          // opcional
       descricao,
       preco,
+      quantidade,
+      custo,
       unidade = 'un',
+      cor,
       empresa,          // opcional, mas idealmente vem do token do utilizador autenticado
       tributavel = true,
+      controlaEstoque = false,
+      estoqueMinimo = 0,
       ativo = true,
       // NÃO pegamos 'empresa' do body — vem do utilizador autenticado
     } = req.body;
@@ -49,7 +54,13 @@ const criarProduto = async (req, res) => {
       preco: preco,
       unidade,
       tributavel,
+      cor,
+      quantidade: quantidade || 0,
+      custo: custo || 0,
       ativo,
+      controlaEstoque,
+      estoqueMinimo,
+      criadoPor: req.user.id,
       empresa: empresaId
     });
 

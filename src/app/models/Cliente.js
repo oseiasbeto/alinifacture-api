@@ -13,10 +13,7 @@ const clienteSchema = new mongoose.Schema({
     lowercase: true,
   },
   telefone: String,
-  nif: {                      // NIF do cliente (obrigatório em muitos casos pela AGT)
-    type: String,
-    trim: true,
-  },
+  nif: String,
   endereco: String,
   cidade: {
     type: String,
@@ -26,7 +23,7 @@ const clienteSchema = new mongoose.Schema({
     type: String,
     enum: [
       'Luanda', 'Benguela', 'Huambo', 'Huíla', 'Cabinda', 'Cuando Cubango',
-      'Cuanza Norte', 'Cuanza Sul', 'Lunda Norte', 'Lunda Sul', 'Malanje',
+      'Cuanza Norte', 'Cuanza Sul', 'Lunda Norte', 'Lunda-sul', 'Malanje',
       'Moxico', 'Uíge', 'Zaire', 'Bengo', 'Bié', 'Namibe'
     ],
     default: 'Luanda',
@@ -40,19 +37,10 @@ const clienteSchema = new mongoose.Schema({
   ativo: {
     type: Boolean,
     default: true,
-  },
-  empresa: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Empresa',
-    required: true,
-    index: true,
-  },
+  }
 }, {
   timestamps: true,
 });
-
-// Índice composto: NIF único por empresa
-clienteSchema.index({ empresa: 1, nif: 1 }, { unique: true, sparse: true });
 
 clienteSchema.plugin(mongoosePaginate);
 

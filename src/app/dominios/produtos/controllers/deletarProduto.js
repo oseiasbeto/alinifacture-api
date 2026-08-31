@@ -1,15 +1,11 @@
 const Produto = require('../../../models/Produto');
+const Estoque = require('../../../models/Estoque');
 
 const deletarProduto = async (req, res) => {
   try {
     const { id } = req.params;
-    const empresaId = req.user?.empresa || req.empresa?._id;
 
-    if (!empresaId) {
-      return res.status(401).json({ success: false, message: 'Empresa não identificada' });
-    }
-
-    const produto = await Produto.findOneAndDelete({ _id: id, empresa: empresaId });
+    const produto = await Produto.findOneAndDelete({ _id: id });
 
     if (!produto) {
       return res.status(404).json({
@@ -17,6 +13,8 @@ const deletarProduto = async (req, res) => {
         message: 'Produto não encontrado ou não pertence à sua empresa'
       });
     }
+
+    await Estoque.deleteMany({ produto: produto._id });
 
     return res.status(200).json({
       success: true,
