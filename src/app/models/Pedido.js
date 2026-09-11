@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 // Cada mudança de status fica registada aqui, com quem fez e quando —
 // dá para reconstruir o percurso completo do pedido (pendente -> em produção -> entregue).
@@ -122,6 +122,7 @@ pedidoSchema.pre('save', async function (next) {
     this.historicoStatus.push({
       status: this.status,
       usuario: this._statusChangedBy || this.atendente,
+      observacao: this._statusObservacao,
     });
 
     if (this.status === 'entregue' && !this.dataEntregaReal) {
