@@ -24,7 +24,7 @@ const produtos = require("./dominios/produtos/produtos.routes") // Rotas relacio
 const clientes = require("./dominios/clientes/clientes.routes") // Rotas relacionadas a clientes
 const estoque = require("./dominios/estoque/estoque.routes") // Rotas relacionadas a clientes
 const pedidos = require("./dominios/pedidos/pedidos.routes") // Rotas relacionadas a clientes
-
+const financeiro = require("./dominios/financeiro/financeiro.routes") // Rotas relacionadas a financeiro
 
 // Registrando as rotas no aplicativo
 app.use("/v1/utilizadores", utilizadores) // Rotas relacionadas a utilizadores
@@ -32,6 +32,8 @@ app.use("/v1/produtos", produtos) // Rotas relacionadas a produtos (ajuste o pre
 app.use("/v1/clientes", clientes) // Rotas relacionadas a clientes
 app.use("/v1/estoque", estoque) // Rotas relacionadas a estoque
 app.use("/v1/pedidos", pedidos) // Rotas relacionadas a pedidos
+
+app.use("/v1/financeiro", financeiro) // Rotas relacionadas a financeiro
 
 // Rota de boas-vindas
 app.get("/", async (req, res) => {
