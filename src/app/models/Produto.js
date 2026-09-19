@@ -56,13 +56,7 @@ const produtoSchema = new mongoose.Schema({
     ref: 'Utilizador',
     required: true,
     index: true,
-  },
-  empresa: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Empresa',
-    required: true,
-    index: true,
-  },
+  }
 }, {
   timestamps: true,
 });

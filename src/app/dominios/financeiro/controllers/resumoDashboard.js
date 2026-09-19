@@ -1,5 +1,6 @@
 const Pedido = require('../../../models/Pedido');
 const Produto = require('../../../models/Produto');
+const Despesa = require('../../../models/Despesa');
 
 // Sem dataInicio/dataFim, o período padrão é o mês corrente.
 function resolverPeriodo(query) {
@@ -25,6 +26,9 @@ const resumoDashboard = async (req, res) => {
       status: { $ne: 'cancelado' },
     };
 
+    // Despesas do período (usa o campo "data" da despesa).
+    const filtroDespesas = { data: { $gte: inicio, $lte: fim } };
+
     const [
       [vendasAgg],
       vendasPorDia,
@@ -32,6 +36,8 @@ const resumoDashboard = async (req, res) => {
       [estoqueAgg],
       totalBaixoEstoque,
       topProdutos,
+      [despesasAgg],
+      despesasPorDia,
     ] = await Promise.all([
       Pedido.aggregate([
         { $match: filtroVendas },
@@ -70,14 +76,33 @@ const resumoDashboard = async (req, res) => {
         { $unwind: { path: '$produtoInfo', preserveNullAndEmptyArrays: true } },
         { $project: { _id: 0, nome: { $ifNull: ['$produtoInfo.nome', 'Produto removido'] }, quantidade: 1, valor: 1 } },
       ]),
+      // Total real de despesas no período
+      Despesa.aggregate([
+        { $match: filtroDespesas },
+        { $group: { _id: null, total: { $sum: 1 }, valorTotal: { $sum: { $ifNull: ['$valor', 0] } } } },
+      ]),
+      // Despesas agrupadas por dia (para a série diária)
+      Despesa.aggregate([
+        { $match: filtroDespesas },
+        {
+          $group: {
+            _id: { $dateToString: { format: '%Y-%m-%d', date: '$data' } },
+            valor: { $sum: { $ifNull: ['$valor', 0] } },
+          },
+        },
+      ]),
     ]);
 
     const totalVendas = vendasAgg?.total || 0;
     const receitas = vendasAgg?.valorTotal || 0;
+    const despesas = despesasAgg?.valorTotal || 0;
+    const lucro = receitas - despesas;
 
-    // Mapa dia -> receita, para preencher todos os dias do período (mesmo os sem vendas, com 0).
+    // Mapas dia -> valor, para preencher todos os dias do período (mesmo os sem movimento, com 0).
     const mapaReceitas = {};
     vendasPorDia.forEach((d) => { mapaReceitas[d._id] = d.valor; });
+    const mapaDespesas = {};
+    despesasPorDia.forEach((d) => { mapaDespesas[d._id] = d.valor; });
 
     const serieDiaria = [];
     const cursor = new Date(inicio);
@@ -85,7 +110,14 @@ const resumoDashboard = async (req, res) => {
     const limite = new Date(fim);
     while (cursor <= limite) {
       const chave = formatarDataChave(cursor);
-      serieDiaria.push({ data: chave, receitas: mapaReceitas[chave] || 0 });
+      const receitaDia = mapaReceitas[chave] || 0;
+      const despesaDia = mapaDespesas[chave] || 0;
+      serieDiaria.push({
+        data: chave,
+        receitas: receitaDia,
+        despesas: despesaDia,
+        lucro: receitaDia - despesaDia,
+      });
       cursor.setDate(cursor.getDate() + 1);
     }
 
@@ -101,10 +133,10 @@ const resumoDashboard = async (req, res) => {
         vendas: { total: totalVendas, valorTotal: receitas },
         receitas,
 
-        // Ainda não há ContaPagar/Saida no sistema — quando existirem, isto passa a ser calculado de verdade.
-        despesas: 0,
-        despesasDisponivel: false,
-        lucro: receitas,
+        despesas,
+        despesasDisponivel: true,
+        totalDespesas: despesasAgg?.total || 0,
+        lucro,
 
         serieDiaria,
         pedidos: { total: totalPedidos, porStatus: pedidosPorStatus },

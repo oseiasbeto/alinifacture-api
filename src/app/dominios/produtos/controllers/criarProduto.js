@@ -12,7 +12,6 @@ const criarProduto = async (req, res) => {
       custo,
       unidade = 'un',
       cor,
-      empresa,          // opcional, mas idealmente vem do token do utilizador autenticado
       tributavel = true,
       controlaEstoque = false,
       estoqueMinimo = 0,
@@ -36,15 +35,6 @@ const criarProduto = async (req, res) => {
     }
 
     // 3. Pega a empresa do utilizador autenticado (exemplo comum)
-    // Se usas JWT/middleware de auth, algo como req.user.empresa
-    const empresaId = req.user?.empresa || empresa; // ajusta conforme teu middleware de auth
-
-    if (!empresaId) {
-      return res.status(400).json({
-        success: false,
-        message: 'Empresa não identificada. Faça login novamente.'
-      });
-    }
 
     // 4. Cria o novo produto
     const novoProduto = new Produto({
@@ -60,8 +50,7 @@ const criarProduto = async (req, res) => {
       ativo,
       controlaEstoque,
       estoqueMinimo,
-      criadoPor: req.user.id,
-      empresa: empresaId
+      criadoPor: req.user.id
     });
 
     // 5. Salva no banco
@@ -80,7 +69,6 @@ const criarProduto = async (req, res) => {
         unidade: novoProduto.unidade,
         tributavel: novoProduto.tributavel,
         ativo: novoProduto.ativo,
-        empresa: novoProduto.empresa,
         createdAt: novoProduto.createdAt
       }
     });

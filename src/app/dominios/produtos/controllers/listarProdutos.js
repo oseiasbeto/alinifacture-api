@@ -2,15 +2,6 @@ const Produto = require('../../../models/Produto'); // ajuste o caminho
 
 const listarProdutos = async (req, res) => {
   try {
-    const empresaId = req.user?.empresa || req.empresa;
-
-    if (!empresaId) {
-      return res.status(401).json({
-        success: false,
-        message: 'Empresa não identificada. Faça login novamente.'
-      });
-    }
-
     let ativoFilter = null;
     if (req.query.ativo !== undefined && req.query.ativo !== '') {
       // Converte string para boolean

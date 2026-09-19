@@ -21,13 +21,8 @@ const utilizadorSchema = new mongoose.Schema({
   },
   cargo: {
     type: String,
-    enum: ['proprietario', 'administrador', 'contabilista', 'visualizador'],
-    default: 'contabilista',
-  },
-  empresa: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Empresa',
-    required: [true, 'Utilizador deve pertencer a uma empresa'],
+    enum: ['gerente', 'caixa', 'administrador', 'visualizador'],
+    default: 'gerente',
   },
   telefone: String,
   ultimoLogin: Date,

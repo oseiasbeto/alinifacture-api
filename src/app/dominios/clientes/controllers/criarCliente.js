@@ -2,12 +2,7 @@ const Cliente = require('../../../models/Cliente');
 
 const criarCliente = async (req, res) => {
   try {
-    const empresaId = req.user?.empresa || req.empresa;
-
-    if (!empresaId) {
-      return res.status(401).json({ success: false, message: 'Empresa não identificada' });
-    }
-
+    
     const {
       nome,
       email,
@@ -48,8 +43,7 @@ const criarCliente = async (req, res) => {
       provincia,
       tipo,
       observacoes: observacoes ? observacoes.trim() : undefined,
-      ativo,
-      empresa: empresaId
+      ativo
     });
 
     await novoCliente.save();
