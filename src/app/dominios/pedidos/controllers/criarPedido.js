@@ -20,6 +20,7 @@ const criarPedido = async (req, res) => {
       dataEntregaPrevista,
       responsavelProducao,
       observacoes,
+      imagens
     } = req.body;
 
     if (!cliente) {
@@ -46,6 +47,7 @@ const criarPedido = async (req, res) => {
       dataEntregaPrevista: dataEntregaPrevista || undefined,
       responsavelProducao: responsavelProducao || undefined,
       observacoes,
+      imagens: imagens || [],
       atendente: atendenteId,
     });
 

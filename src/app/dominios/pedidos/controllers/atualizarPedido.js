@@ -12,8 +12,10 @@ const atualizarPedido = async (req, res) => {
       responsavelProducao,
       contactoCliente,
       observacoes,
+      imagens
     } = req.body;
 
+    console.log(req.body)
     const pedido = await Pedido.findById(id);
     if (!pedido) {
       return res.status(404).json({ success: false, message: 'Pedido não encontrado' });
@@ -34,6 +36,7 @@ const atualizarPedido = async (req, res) => {
     if (responsavelProducao !== undefined) pedido.responsavelProducao = responsavelProducao || undefined;
     if (contactoCliente !== undefined) pedido.contactoCliente = contactoCliente;
     if (observacoes !== undefined) pedido.observacoes = observacoes;
+    if (imagens !== undefined) pedido.imagens = imagens;
 
     await pedido.save();
 

@@ -71,6 +71,8 @@ const pedidoSchema = new mongoose.Schema({
     default: 'pendente',
   },
 
+  imagens: { type: [String], default: [] },
+
   historicoStatus: [historicoStatusSchema],
 
   // Quem faz o quê
