@@ -6,6 +6,10 @@ const utilizadorSchema = new mongoose.Schema({
     required: [true, 'Nome próprio é obrigatório'],
     trim: true,
   },
+  apelido: {
+    type: String,
+    trim: true,
+  },
   email: {
     type: String,
     required: [true, 'Email é obrigatório'],
@@ -21,8 +25,8 @@ const utilizadorSchema = new mongoose.Schema({
   },
   cargo: {
     type: String,
-    enum: ['gerente', 'caixa', 'administrador', 'visualizador'],
-    default: 'gerente',
+    enum: ['gerente', 'caixa', 'estoquista', 'administrador', 'designer', 'visualizador'],
+    default: 'visualizador',
   },
   telefone: String,
   ultimoLogin: Date,

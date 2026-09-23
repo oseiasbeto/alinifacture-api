@@ -55,6 +55,7 @@ const pedidoSchema = new mongoose.Schema({
 
   precoUnitario: { type: Number, min: 0 },
   valorTotal: { type: Number, min: 0 },
+  valorAdicionalServico: { type: Number, min: 0 }, // ex: entrega, montagem, etc. 
 
   dataEntregaPrevista: Date,
   dataEntregaReal: Date,
@@ -105,13 +106,23 @@ pedidoSchema.index({ status: 1, createdAt: -1 });
 pedidoSchema.index({ cliente: 1 });
 
 // Mantém o histórico de status atualizado e recalcula o valor total.
-// IMPORTANTE: se quiseres registar QUEM mudou o status (não só o atendente que criou),
-// define `pedido._statusChangedBy = req.user._id` no controller ANTES de dar save().
+// IMPORTANTE: como pode haver mais de um atendente, o histórico deve registar sempre quem
+// efetivamente executou a ação (o utilizador autenticado), não assumir automaticamente o
+// `atendente` atribuído ao pedido — os dois podem ser pessoas diferentes (ex: um administrador
+// ou outro atendente a criar/gerir o pedido em nome de outro).
+//
+// Por isso, o controller DEVE definir, ANTES de dar save():
+//   - na criação:        pedido._criadoPor       = req.user?._id
+//   - na mudança de status: pedido._statusChangedBy = req.user?._id
+// Se `_criadoPor` (ou `_statusChangedBy`) não for definido, cai-se de volta para `this.atendente`
+// como comportamento de segurança, mas o ideal é vir sempre preenchido pelo controller.
 pedidoSchema.pre('save', async function (next) {
   if (this.isNew) {
+
+    console.log('Criando novo pedido:', this._id, 'por', this._criadoPor || this.atendente);
     this.historicoStatus.push({
       status: this.status,
-      usuario: this.atendente,
+      usuario: this._criadoPor || this.atendente,
     });
 
     const Cliente = mongoose.model('Cliente');

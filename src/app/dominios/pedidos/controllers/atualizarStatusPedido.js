@@ -38,10 +38,12 @@ const atualizarStatusPedido = async (req, res) => {
 
     // Campos transitórios lidos pelo hook pre('save') do model, para
     // registar corretamente quem fez a mudança e a observação no histórico.
-    pedido._statusChangedBy = req.user?._id;
+    pedido._statusChangedBy = req.user?.id;
     pedido._statusObservacao = observacao;
     pedido.status = status;
+    pedido._criadoPor = req.user?.id
 
+    console.log('Atualizando status do pedido:', pedido._id, 'para', status, 'por', req.user?.id);
     await pedido.save();
 
     return res.status(200).json({

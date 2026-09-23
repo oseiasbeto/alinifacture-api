@@ -25,7 +25,7 @@ const login = async (req, res) => {
     const cleanedEmail = email.trim().toLowerCase();
 
     const utilizador = await Utilizador.findOne({ email: cleanedEmail })
-      .select('+palavraPasse nomeProprio apelido cargo empresa telefone ultimoLogin ativo fotoPerfil');
+      .select('+palavraPasse nomeProprio apelido cargo empresa email telefone ultimoLogin ativo fotoPerfil');
 
     if (!utilizador) {
       return res.status(400).json({
@@ -79,14 +79,12 @@ const login = async (req, res) => {
 
     // 7. Salva a nova sessão no banco de dados
     await newSession.save();
-
     // 9. Dados seguros para retornar ao frontend (sem palavra-passe)
     const utilizadorResponse = {
       _id: utilizador._id,
       nomeCompleto: utilizador.nomeProprio,
       email: utilizador.email,
       cargo: utilizador.cargo,
-      empresa: utilizador.empresa,
       telefone: utilizador.telefone || null,
       fotoPerfil: utilizador.fotoPerfil || null,
       ultimoLogin: utilizador.ultimoLogin,

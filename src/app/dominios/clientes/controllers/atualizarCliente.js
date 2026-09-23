@@ -3,13 +3,8 @@ const Cliente = require('../../../models/Cliente');
 const atualizarCliente = async (req, res) => {
   try {
     const { id } = req.params;
-    const empresaId = req.user?.empresa || req.empresa?._id;
 
-    if (!empresaId) {
-      return res.status(401).json({ success: false, message: 'Empresa não identificada' });
-    }
-
-    const cliente = await Cliente.findOne({ _id: id, empresa: empresaId });
+    const cliente = await Cliente.findOne({ _id: id });
 
     if (!cliente) {
       return res.status(404).json({ success: false, message: 'Cliente não encontrado' });
