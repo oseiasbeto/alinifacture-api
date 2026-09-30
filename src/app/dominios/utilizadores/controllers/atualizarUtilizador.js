@@ -1,6 +1,6 @@
 const Utilizador = require('../../../models/Utilizador');
 
-const CARGOS_VALIDOS = ['administrador', 'caixa', 'estoquista', 'designer', 'visualizador'];
+const CARGOS_VALIDOS = ['administrador', 'caixa', 'estoquista', 'producao', 'designer', 'visualizador'];
 
 const atualizarUtilizador = async (req, res) => {
   try {

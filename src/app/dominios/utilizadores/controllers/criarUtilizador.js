@@ -2,7 +2,7 @@ const Utilizador = require('../../../models/Utilizador');
 const gerarPalavraPasse = require('../../../utils/gerarPalavraPasse'); // ajuste o caminho conforme necessário
 const bcrypt = require('bcryptjs');
 
-const CARGOS_VALIDOS = ['administrador', 'caixa', 'estoquista', 'designer', 'visualizador'];
+const CARGOS_VALIDOS = ['administrador', 'caixa', 'estoquista', 'producao', 'designer', 'visualizador'];
 
 const criarUtilizador = async (req, res) => {
   try {

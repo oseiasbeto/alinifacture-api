@@ -7,7 +7,7 @@ const generateAccessToken = (user, expiresIn) => {
         id: user._id,
         email: user.email,
         name: user.nomeProprio,
-        empresa: user.empresa
+        cargo: user.cargo
     }, secreet_key, {
         expiresIn: expiresIn
     })

@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Utilizador = require('../../../models/Utilizador'); // ajuste o caminho correto
 const Session = require('../../../models/Session'); // ajuste o caminho correto (nome do modelo exportado)
-const moment = require('moment');
 
 const { randomUUID } = require("crypto")
 

@@ -25,7 +25,7 @@ const utilizadorSchema = new mongoose.Schema({
   },
   cargo: {
     type: String,
-    enum: ['gerente', 'caixa', 'estoquista', 'administrador', 'designer', 'visualizador'],
+    enum: ['gerente', 'caixa', 'estoquista', 'producao', 'administrador', 'designer', 'visualizador'],
     default: 'visualizador',
   },
   telefone: String,

@@ -6,11 +6,12 @@ const resumoPedidos = async (req, res) => {
       { $group: { _id: '$status', total: { $sum: 1 } } },
     ]);
 
-    const resumo = { pendente: 0, em_execucao: 0, pronto: 0, entregue: 0, cancelado: 0 };
+    const resumo = { pendente: 0, em_execucao: 0, pronto_entrega: 0, entregue: 0, cancelado: 0 };
     contagem.forEach((c) => { resumo[c._id] = c.total; });
     resumo.total = Object.values(resumo).reduce((soma, n) => soma + n, 0);
 
     return res.status(200).json({
+      
       success: true,
       resumo,
       message: 'Resumo de pedidos calculado com sucesso',

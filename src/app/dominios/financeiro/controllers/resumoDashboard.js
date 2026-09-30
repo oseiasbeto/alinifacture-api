@@ -24,6 +24,7 @@ const resumoDashboard = async (req, res) => {
     const filtroVendas = {
       createdAt: { $gte: inicio, $lte: fim },
       status: { $ne: 'cancelado' },
+      $nor: [{ tipoPagamento: 'ordem_saque', 'ordemSaque.estado': { $ne: 'recebido' } }],
     };
 
     // Despesas do período (usa o campo "data" da despesa).

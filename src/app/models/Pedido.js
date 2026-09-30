@@ -5,11 +5,26 @@ const mongoose = require('mongoose');
 const historicoStatusSchema = new mongoose.Schema({
   status: {
     type: String,
-    enum: ['pendente', 'em_execucao', 'pronto', 'entregue', 'cancelado'],
+    enum: ['pendente', 'em_execucao', 'pronto', 'pronto_entrega', 'entregue', 'cancelado'],
     required: true,
   },
   data: { type: Date, default: Date.now },
   usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Utilizador' },
+  observacao: String,
+}, { _id: false });
+
+// Dados da modalidade "Ordem de saque" (ex: clientes do Estado que pagam depois).
+// Só é preenchido quando tipoPagamento === 'ordem_saque'.
+const ordemSaqueSchema = new mongoose.Schema({
+  numero: { type: String, trim: true },      // nº da ordem de saque (opcional)
+  entidade: { type: String, trim: true },    // entidade pagadora (opcional)
+  estado: {
+    type: String,
+    enum: ['pendente', 'recebido'],
+    default: 'pendente',
+  },
+  dataRecebimento: Date,                      // quando o dinheiro refletiu na conta
+  recebidoPor: { type: mongoose.Schema.Types.ObjectId, ref: 'Utilizador' },
   observacao: String,
 }, { _id: false });
 
@@ -34,11 +49,28 @@ const pedidoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Produto',
   },
+
   tipoProduto: {
     type: String,
     required: [true, 'Informe o tipo de produto/serviço pedido'],
     trim: true,
   }, // Ex: "Cartões de visita", "Banner", "T-shirt estampada", "Convites de casamento"
+
+  metodoPagamento: {
+    type: String,
+    enum: ['Dinheiro', 'Transferência Bancária', 'Multicaixa Express', 'Cartão de Crédito/Débito', 'Ordem de Saque', 'Outro'],
+    default: 'Dinheiro'
+  },
+
+  // Modalidade de pagamento:
+  // a_vista      -> pago no acto (comportamento original, valor conta no dashboard)
+  // ordem_saque  -> pagamento diferido; só conta no dashboard depois de ordemSaque.estado === 'recebido'
+  tipoPagamento: {
+    type: String,
+    enum: ['a_vista', 'ordem_saque'],
+    default: 'a_vista',
+  },
+  ordemSaque: { type: ordemSaqueSchema, default: undefined },
 
   especificacoes: {
     type: String,
@@ -68,7 +100,7 @@ const pedidoSchema = new mongoose.Schema({
   // cancelado       -> pedido cancelado (cliente desistiu, erro, etc.)
   status: {
     type: String,
-    enum: ['pendente', 'em_execucao', 'pronto', 'entregue', 'cancelado'],
+    enum: ['pendente', 'em_execucao', 'pronto', 'pronto_entrega', 'entregue', 'cancelado'],
     default: 'pendente',
   },
 
@@ -104,6 +136,7 @@ const pedidoSchema = new mongoose.Schema({
 
 pedidoSchema.index({ status: 1, createdAt: -1 });
 pedidoSchema.index({ cliente: 1 });
+pedidoSchema.index({ tipoPagamento: 1, 'ordemSaque.estado': 1 });
 
 // Mantém o histórico de status atualizado e recalcula o valor total.
 // IMPORTANTE: como pode haver mais de um atendente, o histórico deve registar sempre quem
@@ -132,15 +165,22 @@ pedidoSchema.pre('save', async function (next) {
       this.contactoCliente = this.contactoCliente || cliente.telefone;
     }
   } else if (this.isModified('status')) {
+    const quem = this._statusChangedBy || this.atendente;
+
     this.historicoStatus.push({
       status: this.status,
       usuario: this._statusChangedBy || this.atendente,
       observacao: this._statusObservacao,
     });
 
-    if (this.status === 'entregue' && !this.dataEntregaReal) {
-      this.dataEntregaReal = new Date();
-      this.entreguePor = this._statusChangedBy || this.entreguePor;
+    if (this.status === 'em_execucao' || this.status === 'pronto') {
+      if (!this.responsavelDesign) this.responsavelDesign = quem;
+    }
+    
+    if (this.status === 'entregue') {
+      if (!this.responsavelProducao) this.responsavelProducao = quem;
+      if (!this.dataEntregaReal) this.dataEntregaReal = new Date();
+      this.entreguePor = quem;
     }
   }
 

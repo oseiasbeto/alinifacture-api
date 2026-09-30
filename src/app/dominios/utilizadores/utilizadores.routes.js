@@ -17,6 +17,10 @@ const atualizarUtilizador = require('./controllers/atualizarUtilizador');
 const redefinirSenhaUtilizador = require('./controllers/redefinirSenhaUtilizador');
 const eliminarUtilizador = require('./controllers/eliminarUtilizador');
 const resumoUtilizadores = require('./controllers/resumoUtilizadores');
+const rankingFuncionarios = require('./controllers/Rankingfuncionarios');
+const alterarMinhaSenha = require('./controllers/alterarMinhaSenha');
+
+
 
 // configurando as rotas
 router.post("/login", login)
@@ -27,11 +31,14 @@ router.post("/logout", logout)
 
 router.get('/resumo', resumoUtilizadores);
 router.get('/', protectedRoute, listarUtilizadores);
+router.get('/ranking', protectedRoute, rankingFuncionarios);
 router.get('/:id', protectedRoute, buscarUtilizadorPorId);
 router.post('/', protectedRoute, criarUtilizador);
 router.put('/:id', protectedRoute, atualizarUtilizador);
 router.patch('/:id/redefinir-senha', protectedRoute, redefinirSenhaUtilizador);
 router.delete('/:id', protectedRoute, eliminarUtilizador);
+// rota para alterar a própria senha (autenticado)
+router.patch('/minha-senha', protectedRoute, alterarMinhaSenha);
 
 // exportando as rotas
 module.exports = router

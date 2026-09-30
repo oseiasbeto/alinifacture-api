@@ -8,7 +8,8 @@ const buscarPedidoPorId = async (req, res) => {
       .populate('atendente', 'nomeProprio')
       .populate('responsavelProducao', 'nome')
       .populate('produto', 'nome')
-      .populate('historicoStatus.usuario', 'nomeProprio');
+      .populate('historicoStatus.usuario', 'nomeProprio')
+      .populate('ordemSaque.recebidoPor', 'nomeProprio');
 
     if (!pedido) {
       return res.status(404).json({ success: false, message: 'Pedido não encontrado' });

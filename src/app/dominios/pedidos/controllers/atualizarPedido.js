@@ -15,7 +15,7 @@ const atualizarPedido = async (req, res) => {
       imagens
     } = req.body;
 
-    console.log(req.body)
+
     const pedido = await Pedido.findById(id);
     if (!pedido) {
       return res.status(404).json({ success: false, message: 'Pedido não encontrado' });

@@ -16,6 +16,7 @@ const excluirPedido = require('./controllers/excluirPedido');
 router.get('/resumo', protectedRoute, resumoPedidos);
 router.get('/', protectedRoute, listarPedidos);
 router.get('/:id', protectedRoute, buscarPedidoPorId);
+router.patch('/:id/ordem-saque/receber', protectedRoute, require('./controllers/receberOrdemSaque'));
 router.post('/', protectedRoute, criarPedido);
 router.put('/:id', protectedRoute, atualizarPedido);
 router.patch('/:id/status', protectedRoute, atualizarStatusPedido);
